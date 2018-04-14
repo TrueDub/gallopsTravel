@@ -1,18 +1,16 @@
 import axios from 'axios';
+import {stationDetail} from './stationDetail.js';
 
 const API_ROOT = 'http://luasforecasts.rpa.ie/xml/get.ashx';
 
-async function getNextTrainsAtStation(stationId) {
-    let apiString = API_ROOT + '?encrypt=false&action=forecast&stop=' + stationId;
-    axios.get(apiString)
-        .then(response => {
-            console.log(response);
-            return response.data;
-        })
-        .catch(error => {
-            console.log(error);
-            return null;
-        });
+
+function getStationDetail() {
+    return stationDetail;
 }
 
-export {getNextTrainsAtStation};
+function getNextTrainsAtStation(stationId) {
+    let apiString = API_ROOT + '?encrypt=false&action=forecast&stop=' + stationId;
+    return axios.get(apiString);
+}
+
+export {getStationDetail, getNextTrainsAtStation};

@@ -1,31 +1,28 @@
 import React, {Component} from 'react';
-import logo from './logo.svg';
 import './App.css';
 import {getNextTrainsAtStation} from "./luas.service";
+import NextTrain from './NextTrain.jsx';
 
 class App extends Component {
     constructor(props) {
         super(props);
-        this.state = {results: 'init'};
+        this.state = {results: ''};
     }
 
     componentDidMount() {
-        getNextTrainsAtStation('STS').then(data => {
-            this.setState({results: data});
-        });
-
+        getNextTrainsAtStation('STS').then(response => {
+            this.setState({results: response.data});
+        })
+            .catch(error => {
+                console.log(error);
+                return null;
+            });
     }
 
     render() {
         return (
-            <div className="App">
-                <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo"/>
-                    <h1 className="App-title">Welcome to React</h1>
-                </header>
-                <p className="App-intro">
-                    fred -  {this.state.results}
-                </p>
+            <div>
+                <NextTrain/>
             </div>
         );
     }
