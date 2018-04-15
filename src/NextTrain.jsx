@@ -1,13 +1,21 @@
 import React from 'react';
 import {parseString} from 'xml2js';
 
-import {getNextTrainsAtStation, getStationDetail} from "./luas.service";
+import {getNextTrainsAtStation, getStationDetail, gatherResponseData} from "./luas.service";
+
+import 'bootstrap/dist/css/bootstrap.css';
 
 export default class NextTrain extends React.Component {
 
     constructor(props) {
         super(props)
-        this.state = {results: [], stationDetail: getStationDetail()}
+        this.state = {
+            selectedStation: '',
+            message: '',
+            inboundTrains: [],
+            outboundTrains: [],
+            stationDetail: getStationDetail()
+        }
         this.onSelect = this.onSelect.bind(this);
     }
 
@@ -23,13 +31,29 @@ export default class NextTrain extends React.Component {
         return stationOptions;
     }
 
+    generateTrainRows(trainData) {
+        let rows = [];
+        trainData.forEach(train => {
+            rows.push(<tr>
+                <td>{train.dueMins}</td>
+                <td>{train.destination}</td>
+            </tr>)
+        })
+        return rows;
+    }
+
     onSelect(event) {
-        let selectedStation = event.target.value;
-        getNextTrainsAtStation(selectedStation).then(response => {
+        let self = this;
+        getNextTrainsAtStation(event.target.value).then(response => {
             parseString(response.data, function (err, result) {
-                console.log(result);
+                let data = gatherResponseData(result);
+                self.setState({
+                    selectedStation: data.selectedStation,
+                    message: data.message,
+                    inboundTrains: data.inboundTrains,
+                    outboundTrains: data.outboundTrains,
+                });
             });
-            this.setState({results: response.data});
         })
             .catch(error => {
                 console.log(error);
@@ -41,23 +65,42 @@ export default class NextTrain extends React.Component {
     render() {
         return (
             <div>
-                <select onChange={this.onSelect}>{this.generateStationOptions()}</select>
+                <label>Select station:</label><select onChange={this.onSelect}>{this.generateStationOptions()}</select>
                 <div>Next Trains</div>
-                {this.state.results}
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Time</th>
-                        <th>Destination</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    </tbody>
-                </table>
+                <div>{this.state.selectedStation}</div>
+                <div>{this.state.message}</div>
+                <div>
+                    <table className="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th colspan="2">Inbound</th>
+                        </tr>
+                        <tr>
+                            <th>Time</th>
+                            <th>Destination</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {this.generateTrainRows(this.state.inboundTrains)}
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    <table className="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th colSpan="2">Outbound</th>
+                        </tr>
+                        <tr>
+                            <th>Time</th>
+                            <th>Destination</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {this.generateTrainRows(this.state.outboundTrains)}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         );
     }
