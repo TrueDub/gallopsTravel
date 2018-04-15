@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {stationDetail} from './stationDetail.js';
 
-const API_ROOT = 'http://luasforecasts.rpa.ie/xml/get.ashx';
+const API_ROOT = 'https://luasforecasts.rpa.ie/xml/get.ashx';
 
 
 function getStationDetail() {
