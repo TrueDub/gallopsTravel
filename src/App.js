@@ -5,6 +5,7 @@ import './App.css';
 
 import {getNextTrainsAtStation} from "./luas.service";
 import NextTrain from './NextTrain.jsx';
+import LineLayout from "./LineLayout";
 
 class App extends Component {
     constructor(props) {
@@ -24,7 +25,8 @@ class App extends Component {
 
     render() {
         return (
-            <div class="container">
+            <div className="container">
+                <LineLayout/>
                 <NextTrain/>
             </div>
         );

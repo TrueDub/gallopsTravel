@@ -73,7 +73,7 @@ export default class NextTrain extends React.Component {
                     <table className="table table-bordered table-striped">
                         <thead>
                         <tr>
-                            <th colspan="2">Inbound</th>
+                            <th colSpan="2">Inbound</th>
                         </tr>
                         <tr>
                             <th>Time</th>
