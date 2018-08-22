@@ -10,27 +10,46 @@ export default class Trains extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            glencairnData: {},
-            message: ''
+            message: '',
+            glencairnData: {
+                inboundTrains: [],
+                outboundTrains: []
+            }
         }
+        this.gatherTrainData();
     }
 
-    componentDidMount() {
+    gatherTrainData() {
         getNextTrainsAtStation('GLE').then(response => {
             parseString(response.data, function (err, result) {
                 let data = gatherResponseData(result);
-                self.setState({
-                    selectedStation: data.selectedStation,
+                console.log(data);
+                this.setState({
                     message: data.message,
-                    inboundTrains: data.inboundTrains,
-                    outboundTrains: data.outboundTrains,
+                    glencairnData: {
+                        inboundTrains: data.inboundTrains,
+                        outboundTrains: data.outboundTrains
+                    }
                 });
-            });
+            }.bind(this));
         })
             .catch(error => {
                 console.log(error);
                 return null;
             });
+    }
+
+    generateTrainRows(trainData) {
+        let rows = [];
+        let trainCount = 0;
+        trainData.forEach(train => {
+            trainCount++;
+            rows.push(<tr key={trainCount}>
+                <td>{train.dueMins}</td>
+                <td>{train.destination}</td>
+            </tr>)
+        })
+        return rows;
     }
 
 
@@ -39,14 +58,12 @@ export default class Trains extends React.Component {
             <div>
                 <div id="luas">
                     <h3>Luas Information</h3>
-                    <h5>Glencairn</h5>
-                    <div>Next Trains</div>
-                    <div>{this.state.message}</div>
+                    <div>General Line performance: {this.state.message}</div>
                     <div>
                         <table className="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th colSpan="2">Inbound</th>
+                                <th colSpan="2">Glencairn</th>
                             </tr>
                             <tr>
                                 <th>Time</th>
@@ -54,23 +71,8 @@ export default class Trains extends React.Component {
                             </tr>
                             </thead>
                             <tbody>
-                            {this.generateTrainRows(this.state.inboundTrains)}
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                        <table className="table table-bordered table-striped">
-                            <thead>
-                            <tr>
-                                <th colSpan="2">Outbound</th>
-                            </tr>
-                            <tr>
-                                <th>Time</th>
-                                <th>Destination</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {this.generateTrainRows(this.state.outboundTrains)}
+                            {this.generateTrainRows(this.state.glencairnData.inboundTrains)}
+                            {this.generateTrainRows(this.state.glencairnData.outboundTrains)}
                             </tbody>
                         </table>
                     </div>
