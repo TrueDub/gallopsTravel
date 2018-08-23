@@ -1,42 +1,84 @@
 import React from 'react';
-import {parseString} from 'xml2js';
 
-import {getNextTrainsAtStation, gatherResponseData} from "./luas.service";
+import {parse} from 'fast-xml-parser';
 
 import 'bootstrap/dist/css/bootstrap.css';
+import axios from "axios";
+
+const API_ROOT = 'https://luasforecasts.rpa.ie/xml/get.ashx';
 
 export default class Trains extends React.Component {
 
+
     constructor(props) {
-        super(props)
+        super(props);
+
         this.state = {
-            message: '',
-            glencairnData: {
-                inboundTrains: [],
-                outboundTrains: []
-            }
+            glencairnData: {message: '', inboundTrains: [], outboundTrains: []},
+            gallopsData: {message: '', inboundTrains: [], outboundTrains: []},
+            leopardstownData: {message: '', inboundTrains: [], outboundTrains: []},
+            ballyoganData: {message: '', inboundTrains: [], outboundTrains: []}
         }
-        this.gatherTrainData();
+        axios.all([
+            axios.get(API_ROOT + '?encrypt=false&action=forecast&stop=GLE'),
+            axios.get(API_ROOT + '?encrypt=false&action=forecast&stop=GAL'),
+            axios.get(API_ROOT + '?encrypt=false&action=forecast&stop=LEO'),
+            axios.get(API_ROOT + '?encrypt=false&action=forecast&stop=BAW')
+        ]).then(
+            axios.spread((gleData, galData, leoData, bawData) => {
+                let glencairnData = this.processTrainData(gleData);
+                let gallopsData = this.processTrainData(galData);
+                let leopardstownData = this.processTrainData(leoData);
+                let ballyoganData = this.processTrainData(bawData);
+                this.setState({
+                    glencairnData: glencairnData,
+                    gallopsData: gallopsData,
+                    leopardstownData: leopardstownData,
+                    ballyoganData: ballyoganData
+                });
+                console.log(this.state.gallopsData);
+            }));
     }
 
-    gatherTrainData() {
-        getNextTrainsAtStation('GLE').then(response => {
-            parseString(response.data, function (err, result) {
-                let data = gatherResponseData(result);
-                console.log(data);
-                this.setState({
-                    message: data.message,
-                    glencairnData: {
-                        inboundTrains: data.inboundTrains,
-                        outboundTrains: data.outboundTrains
-                    }
-                });
-            }.bind(this));
-        })
-            .catch(error => {
-                console.log(error);
-                return null;
+    processTrainData(response) {
+        // result = parse(response.data);
+        parseString(response.data, function (err, result) {
+            console.log(result.stopInfo.direction);
+            let data = this.gatherResponseData(result);
+            return {
+                message: data.message,
+                trainData: {
+                    inboundTrains: data.inboundTrains,
+                    outboundTrains: data.outboundTrains
+                }
+            }
+        });
+    }
+
+    gatherResponseData(result) {
+        let inboundTrains = [];
+        let outboundTrains = [];
+        result.stopInfo.direction.forEach(entry => {
+            let target = [];
+            entry.tram.forEach(tram => {
+                let tramEntry = {
+                    dueMins: tram['$']['dueMins'],
+                    destination: tram['$']['destination']
+                }
+                target.push(tramEntry);
             });
+            if (entry['$']['name'] === 'Inbound') {
+                inboundTrains = target;
+            } else {
+                outboundTrains = target;
+            }
+        })
+        return {
+            selectedStation: result['stopInfo']['$']['stop'],
+            message: result['stopInfo']['message'],
+            inboundTrains: inboundTrains,
+            outboundTrains: outboundTrains,
+        };
     }
 
     generateTrainRows(trainData) {
@@ -58,7 +100,7 @@ export default class Trains extends React.Component {
             <div>
                 <div id="luas">
                     <h3>Luas Information</h3>
-                    <div>General Line performance: {this.state.message}</div>
+                    <div>General Line notice: {this.state.glencairnData.message}</div>
                     <div>
                         <table className="table table-bordered table-striped">
                             <thead>
