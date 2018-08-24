@@ -92,16 +92,16 @@ export default class Trains extends React.Component {
         return (
             <div>
                 <div id="luas">
-                    <h3 class="text-center">Luas Information - {this.state.glencairnData.message}</h3>
-                    <div class="row">
-                        <div class="col">
+                    <h3 className="text-center">Luas Information - {this.state.glencairnData.message}</h3>
+                    <div className="row">
+                        <div className="col">
                             <table className="table table-bordered table-striped">
                                 <thead>
                                 <tr>
                                     <th colSpan="2">Glencairn</th>
                                 </tr>
                                 <tr>
-                                    <th>Time</th>
+                                    <th>Due in (mins)</th>
                                     <th>Destination</th>
                                 </tr>
                                 </thead>
@@ -111,14 +111,14 @@ export default class Trains extends React.Component {
                                 </tbody>
                             </table>
                         </div>
-                        <div class="col">
+                        <div className="col">
                             <table className="table table-bordered table-striped">
                                 <thead>
                                 <tr>
                                     <th colSpan="2">The Gallops</th>
                                 </tr>
                                 <tr>
-                                    <th>Time</th>
+                                    <th>Due in (mins)</th>
                                     <th>Destination</th>
                                 </tr>
                                 </thead>
@@ -128,14 +128,14 @@ export default class Trains extends React.Component {
                                 </tbody>
                             </table>
                         </div>
-                        <div class="col">
+                        <div className="col">
                             <table className="table table-bordered table-striped">
                                 <thead>
                                 <tr>
                                     <th colSpan="2">Leopardstown Valley</th>
                                 </tr>
                                 <tr>
-                                    <th>Time</th>
+                                    <th>Due in (mins)</th>
                                     <th>Destination</th>
                                 </tr>
                                 </thead>
@@ -145,14 +145,14 @@ export default class Trains extends React.Component {
                                 </tbody>
                             </table>
                         </div>
-                        <div class="col">
+                        <div className="col">
                             <table className="table table-bordered table-striped">
                                 <thead>
                                 <tr>
                                     <th colSpan="2">Ballyogan Wood</th>
                                 </tr>
                                 <tr>
-                                    <th>Time</th>
+                                    <th>Due in (mins)</th>
                                     <th>Destination</th>
                                 </tr>
                                 </thead>
