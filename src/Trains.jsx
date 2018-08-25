@@ -1,6 +1,7 @@
 import React from 'react';
-//import {parseString} from 'xml2js';
 import {parse} from 'pixl-xml';
+import {DataTable} from 'primereact/datatable';
+import {Column} from 'primereact/column';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import axios from "axios";
@@ -95,7 +96,7 @@ export default class Trains extends React.Component {
                     <h3 className="text-center">Luas Information - {this.state.glencairnData.message}</h3>
                     <div className="row">
                         <div className="col">
-                            <table className="table table-bordered table-striped">
+                            {/*<table className="table table-bordered table-striped">
                                 <thead>
                                 <tr>
                                     <th colSpan="2">Glencairn</th>
@@ -109,7 +110,11 @@ export default class Trains extends React.Component {
                                 {this.generateTrainRows(this.state.glencairnData.trainData.inboundTrains)}
                                 {this.generateTrainRows(this.state.glencairnData.trainData.outboundTrains)}
                                 </tbody>
-                            </table>
+                            </table>*/}
+                            <DataTable value={this.state.glencairnData.trainData.inboundTrains}>
+                                <Column field="dueMins" header="Due in (mins)"/>
+                                <Column field="destination" header="Destination"/>
+                            </DataTable>
                         </div>
                         <div className="col">
                             <table className="table table-bordered table-striped">
