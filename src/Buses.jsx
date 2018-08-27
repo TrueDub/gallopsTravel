@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import axios from "axios";
+import BusStop from './BusStop.jsx'
 
 const API_ROOT_3470 = 'https://data.smartdublin.ie/cgi-bin/rtpi/realtimebusinformation?stopid=3470&format=json';
 const API_ROOT_3471 = 'https://data.smartdublin.ie/cgi-bin/rtpi/realtimebusinformation?stopid=3471&format=json';
@@ -17,9 +18,7 @@ const API_ROOT_7416 = 'https://data.smartdublin.ie/cgi-bin/rtpi/realtimebusinfor
 const API_ROOT_7417 = 'https://data.smartdublin.ie/cgi-bin/rtpi/realtimebusinformation?stopid=7417&format=json';
 const API_ROOT_7418 = 'https://data.smartdublin.ie/cgi-bin/rtpi/realtimebusinformation?stopid=7418&format=json';
 
-
 export default class Buses extends React.Component {
-
 
     constructor(props) {
         super(props);
@@ -73,6 +72,11 @@ export default class Buses extends React.Component {
                 let data7416 = this.processBusData(response7416.data);
                 let data7417 = this.processBusData(response7417.data);
                 let data7418 = this.processBusData(response7418.data);
+                /*let data7416 = {
+                    stopNumber: 7416,
+                    stopName: 'Murphystown Way, Mount Eagle Park',
+                    buses: this.processBusData(response7416.data)
+                }*/
                 this.setState({
                     data3470: data3470,
                     data3471: data3471,
@@ -126,255 +130,73 @@ export default class Buses extends React.Component {
                 <h3 className="text-center">Dublin Bus Information</h3>
                 <div className="row">
                     <div className="col">
-                        <table className="table table-bordered table-striped">
-                            <thead>
-                            <tr>
-                                <th colSpan="3">Stop 7416 - Murphystown Way, Mount Eagle Park</th>
-                            </tr>
-                            <tr>
-                                <th>Due in (mins)</th>
-                                <th>Route</th>
-                                <th>Destination</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {this.generateBusRows(this.state.data7416.buses)}
-                            </tbody>
-                        </table>
+                        <BusStop stopNumber='7416' stopName='Murphystown Way, Mount Eagle Park'
+                                 buses={this.state.data7416.buses}/>
                     </div>
                     <div className="col">
-                        <table className="table table-bordered table-striped">
-                            <thead>
-                            <tr>
-                                <th colSpan="3">Stop 7418 - Murphystown Way, Mount Eagle Lawn</th>
-                            </tr>
-                            <tr>
-                                <th>Due in (mins)</th>
-                                <th>Route</th>
-                                <th>Destination</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {this.generateBusRows(this.state.data7418.buses)}
-                            </tbody>
-                        </table>
+                        <BusStop stopNumber='7418' stopName='Murphystown Way, Mount Eagle Lawn'
+                                 buses={this.state.data7418.buses}/>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col">
-                        <table className="table table-bordered table-striped">
-                            <thead>
-                            <tr>
-                                <th colSpan="3">Stop 7415 - Murphystown Way, Luas Glencairn</th>
-                            </tr>
-                            <tr>
-                                <th>Due in (mins)</th>
-                                <th>Route</th>
-                                <th>Destination</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {this.generateBusRows(this.state.data7415.buses)}
-                            </tbody>
-                        </table>
+                        <BusStop stopNumber='7415' stopName='Murphystown Way, Luas Glencairn'
+                                 buses={this.state.data7415.buses}/>
                     </div>
                     <div className="col">
-                        <table className="table table-bordered table-striped">
-                            <thead>
-                            <tr>
-                                <th colSpan="3">Stop 7417 - Murphystown Way, Luas Glencairn</th>
-                            </tr>
-                            <tr>
-                                <th>Due in (mins)</th>
-                                <th>Route</th>
-                                <th>Destination</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {this.generateBusRows(this.state.data7417.buses)}
-                            </tbody>
-                        </table>
+                        <BusStop stopNumber='7417' stopName='Murphystown Way, Luas Glencairn'
+                                 buses={this.state.data7417.buses}/>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col">
-                        <table className="table table-bordered table-striped">
-                            <thead>
-                            <tr>
-                                <th colSpan="3">Stop 3487 - Kilgobbin Rd, Ballyogan Road</th>
-                            </tr>
-                            <tr>
-                                <th>Due in (mins)</th>
-                                <th>Route</th>
-                                <th>Destination</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {this.generateBusRows(this.state.data3487.buses)}
-                            </tbody>
-                        </table>
+                        <BusStop stopNumber='3487' stopName='Kilgobbin Rd, Ballyogan Road'
+                                 buses={this.state.data3487.buses}/>
                     </div>
                     <div className="col">
-                        <table className="table table-bordered table-striped">
-                            <thead>
-                            <tr>
-                                <th colSpan="3">Stop 3471 - Kilgobbin Rd, Ballyogan Road</th>
-                            </tr>
-                            <tr>
-                                <th>Due in (mins)</th>
-                                <th>Route</th>
-                                <th>Destination</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {this.generateBusRows(this.state.data3471.buses)}
-                            </tbody>
-                        </table>
+                        <BusStop stopNumber='3471' stopName='Kilgobbin Rd, Ballyogan Road'
+                                 buses={this.state.data3471.buses}/>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col">
-                        <table className="table table-bordered table-striped">
-                            <thead>
-                            <tr>
-                                <th colSpan="3">Stop 3488 - Kilgobbin Rd, Sandyford Hall</th>
-                            </tr>
-                            <tr>
-                                <th>Due in (mins)</th>
-                                <th>Route</th>
-                                <th>Destination</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {this.generateBusRows(this.state.data3488.buses)}
-                            </tbody>
-                        </table>
+                        <BusStop stopNumber='3488' stopName='Kilgobbin Rd, Sandyford Hall'
+                                 buses={this.state.data3488.buses}/>
                     </div>
                     <div className="col">
-                        <table className="table table-bordered table-striped">
-                            <thead>
-                            <tr>
-                                <th colSpan="3">Stop 3470 - Kilgobbin Rd, Sandyford Hall</th>
-                            </tr>
-                            <tr>
-                                <th>Due in (mins)</th>
-                                <th>Route</th>
-                                <th>Destination</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {this.generateBusRows(this.state.data3470.buses)}
-                            </tbody>
-                        </table>
+                        <BusStop stopNumber='3470' stopName='Kilgobbin Rd, Sandyford Hall'
+                                 buses={this.state.data3470.buses}/>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col">
-                        <table className="table table-bordered table-striped">
-                            <thead>
-                            <tr>
-                                <th colSpan="3">Stop 4396 - Ballyogan Rd, Ballyogan Avenue</th>
-                            </tr>
-                            <tr>
-                                <th>Due in (mins)</th>
-                                <th>Route</th>
-                                <th>Destination</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {this.generateBusRows(this.state.data4396.buses)}
-                            </tbody>
-                        </table>
+                        <BusStop stopNumber='4396' stopName='Ballyogan Rd, Ballyogan Avenue'
+                                 buses={this.state.data4396.buses}/>
                     </div>
                     <div className="col">&nbsp;</div>
                 </div>
                 <div className="row">
                     <div className="col">
-                        <table className="table table-bordered table-striped">
-                            <thead>
-                            <tr>
-                                <th colSpan="3">Stop 4313 - Ballyogan Rd, Luas Ballyogan</th>
-                            </tr>
-                            <tr>
-                                <th>Due in (mins)</th>
-                                <th>Route</th>
-                                <th>Destination</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {this.generateBusRows(this.state.data4313.buses)}
-                            </tbody>
-                        </table>
+                        <BusStop stopNumber='4313' stopName='Ballyogan Rd, Luas Ballyogan'
+                                 buses={this.state.data4313.buses}/>
                     </div>
                     <div className="col">
-                        <table className="table table-bordered table-striped">
-                            <thead>
-                            <tr>
-                                <th colSpan="3">Stop 5106 - Ballyogan Rd, Luas Ballyogan</th>
-                            </tr>
-                            <tr>
-                                <th>Due in (mins)</th>
-                                <th>Route</th>
-                                <th>Destination</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {this.generateBusRows(this.state.data5106.buses)}
-                            </tbody>
-                        </table>
+                        <BusStop stopNumber='5106' stopName='Ballyogan Rd, Luas Ballyogan'
+                                 buses={this.state.data5106.buses}/>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col">
-                        <table className="table table-bordered table-striped">
-                            <thead>
-                            <tr>
-                                <th colSpan="3">Stop 4773 - Ballyogan Ave, Ballyogan Road</th>
-                            </tr>
-                            <tr>
-                                <th>Due in (mins)</th>
-                                <th>Route</th>
-                                <th>Destination</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {this.generateBusRows(this.state.data4773.buses)}
-                            </tbody>
-                        </table>
+                        <BusStop stopNumber='4773' stopName='Ballyogan Rd, Ballyogan Road'
+                                 buses={this.state.data4773.buses}/>
                     </div>
                     <div className="col">
-                        <table className="table table-bordered table-striped">
-                            <thead>
-                            <tr>
-                                <th colSpan="3">Stop 4393 - Ballyogan Ave, Leopardstown Abbey</th>
-                            </tr>
-                            <tr>
-                                <th>Due in (mins)</th>
-                                <th>Route</th>
-                                <th>Destination</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {this.generateBusRows(this.state.data4393.buses)}
-                            </tbody>
-                        </table>
+                        <BusStop stopNumber='4393' stopName='Ballyogan Ave, Leopardstown Abbey'
+                                 buses={this.state.data4393.buses}/>
                     </div>
                     <div className="col">
-                        <table className="table table-bordered table-striped">
-                            <thead>
-                            <tr>
-                                <th colSpan="3">Stop 4395 - Ballyogan, Community Centre</th>
-                            </tr>
-                            <tr>
-                                <th>Due in (mins)</th>
-                                <th>Route</th>
-                                <th>Destination</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {this.generateBusRows(this.state.data4395.buses)}
-                            </tbody>
-                        </table>
+                        <BusStop stopNumber='4395' stopName='Ballyogan, Community Centre'
+                                 buses={this.state.data4395.buses}/>
                     </div>
                 </div>
             </div>
