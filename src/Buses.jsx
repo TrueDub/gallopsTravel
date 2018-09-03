@@ -37,7 +37,7 @@ export default class Buses extends React.Component {
             data7416: {buses: [{dueMins: '', destination: '', route: ''}]},
             data7417: {buses: [{dueMins: '', destination: '', route: ''}]},
             data7418: {buses: [{dueMins: '', destination: '', route: ''}]}
-        }
+        };
         axios.all([
             axios.get(API_ROOT_3470),
             axios.get(API_ROOT_3471),
@@ -72,11 +72,6 @@ export default class Buses extends React.Component {
                 let data7416 = this.processBusData(response7416.data);
                 let data7417 = this.processBusData(response7417.data);
                 let data7418 = this.processBusData(response7418.data);
-                /*let data7416 = {
-                    stopNumber: 7416,
-                    stopName: 'Murphystown Way, Mount Eagle Park',
-                    buses: this.processBusData(response7416.data)
-                }*/
                 this.setState({
                     data3470: data3470,
                     data3471: data3471,
@@ -102,27 +97,13 @@ export default class Buses extends React.Component {
             buses.push({
                     dueMins: entry.duetime,
                     destination: entry.destination,
-                    route: entry.route
+                    route: entry.route,
+                    errorMessage: entry.errorMessage
                 }
             );
         });
         return {buses: buses};
     }
-
-    generateBusRows(busData) {
-        let rows = [];
-        let busCount = 0;
-        busData.forEach(bus => {
-            busCount++;
-            rows.push(<tr key={busCount}>
-                <td>{bus.dueMins}</td>
-                <td>{bus.route}</td>
-                <td>{bus.destination}</td>
-            </tr>)
-        })
-        return rows;
-    }
-
 
     render() {
         return (
