@@ -5,6 +5,7 @@ import {Column} from 'primereact/column';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import axios from "axios";
+import LuasStop from "./components/LuasStop";
 
 const API_ROOT = 'https://luasforecasts.rpa.ie/xml/get.ashx';
 
@@ -91,85 +92,30 @@ export default class Trains extends React.Component {
 
     render() {
         return (
-            <div>
-                <div id="luas">
-                    <h3 className="text-center">Luas Information - {this.state.glencairnData.message}</h3>
-                    <div className="row">
-                        <div className="col">
-                            {/*<table className="table table-bordered table-striped">
-                                <thead>
-                                <tr>
-                                    <th colSpan="2">Glencairn</th>
-                                </tr>
-                                <tr>
-                                    <th>Due in (mins)</th>
-                                    <th>Destination</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {this.generateTrainRows(this.state.glencairnData.trainData.inboundTrains)}
-                                {this.generateTrainRows(this.state.glencairnData.trainData.outboundTrains)}
-                                </tbody>
-                            </table>*/}
-                            <DataTable value={this.state.glencairnData.trainData.inboundTrains}>
-                                <Column field="dueMins" header="Due in (mins)"/>
-                                <Column field="destination" header="Destination"/>
-                            </DataTable>
-                        </div>
-                        <div className="col">
-                            <table className="table table-bordered table-striped">
-                                <thead>
-                                <tr>
-                                    <th colSpan="2">The Gallops</th>
-                                </tr>
-                                <tr>
-                                    <th>Due in (mins)</th>
-                                    <th>Destination</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {this.generateTrainRows(this.state.gallopsData.trainData.inboundTrains)}
-                                {this.generateTrainRows(this.state.gallopsData.trainData.outboundTrains)}
-                                </tbody>
-                            </table>
-                        </div>
-                        <div className="col">
-                            <table className="table table-bordered table-striped">
-                                <thead>
-                                <tr>
-                                    <th colSpan="2">Leopardstown Valley</th>
-                                </tr>
-                                <tr>
-                                    <th>Due in (mins)</th>
-                                    <th>Destination</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {this.generateTrainRows(this.state.leopardstownData.trainData.inboundTrains)}
-                                {this.generateTrainRows(this.state.leopardstownData.trainData.outboundTrains)}
-                                </tbody>
-                            </table>
-                        </div>
-                        <div className="col">
-                            <table className="table table-bordered table-striped">
-                                <thead>
-                                <tr>
-                                    <th colSpan="2">Ballyogan Wood</th>
-                                </tr>
-                                <tr>
-                                    <th>Due in (mins)</th>
-                                    <th>Destination</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {this.generateTrainRows(this.state.ballyoganData.trainData.inboundTrains)}
-                                {this.generateTrainRows(this.state.ballyoganData.trainData.outboundTrains)}
-                                </tbody>
-                            </table>
-                        </div>
+            <div id="luas">
+                <h3 className="text-center">Luas Information - {this.state.glencairnData.message}</h3>
+                <div className="row">
+                    <div className="col">
+                        <LuasStop stopName="Glencairn"
+                                  inboundTrains={this.state.glencairnData.trainData.inboundTrains}
+                                  outboundTrains={this.state.glencairnData.trainData.outboundTrains}/>
+                    </div>
+                    <div className="col">
+                        <LuasStop stopName="The Gallops"
+                                  inboundTrains={this.state.gallopsData.trainData.inboundTrains}
+                                  outboundTrains={this.state.gallopsData.trainData.outboundTrains}/>
+                    </div>
+                    <div className="col">
+                        <LuasStop stopName="Leopardstown Valley"
+                                  inboundTrains={this.state.leopardstownData.trainData.inboundTrains}
+                                  outboundTrains={this.state.leopardstownData.trainData.outboundTrains}/>
+                    </div>
+                    <div className="col">
+                        <LuasStop stopName="Ballyogan Wood"
+                                  inboundTrains={this.state.ballyoganData.trainData.inboundTrains}
+                                  outboundTrains={this.state.ballyoganData.trainData.outboundTrains}/>
                     </div>
                 </div>
-                <div id="buses"></div>
             </div>
         );
     }
