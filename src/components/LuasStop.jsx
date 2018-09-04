@@ -12,26 +12,39 @@ export default class LuasStop extends React.Component {
                 <td>{train.destination}</td>
             </tr>)
         })
-        return rows;
-    }
-
-    render() {
+        //return rows;
         return (
             <table className="table table-bordered table-striped">
                 <thead>
-                <tr>
-                    <th colSpan="2">{this.props.stopName}</th>
-                </tr>
                 <tr>
                     <th>Due in (mins)</th>
                     <th>Destination</th>
                 </tr>
                 </thead>
                 <tbody>
-                {this.generateTrainRows(this.props.inboundTrains)}
-                {this.generateTrainRows(this.props.outboundTrains)}
+                {rows}
                 </tbody>
             </table>
-        );
+        )
+    }
+
+    render() {
+        return (
+            <div className="card">
+                <div className="card-body">
+                    <div className="row">
+                        <div className="col-md-12"><h4 class="card-title">{this.props.stopName}</h4></div>
+                        <div className="col-md-6"><h5>Towards Town</h5></div>
+                        <div className="col-md-6"><h5>Towards Bride's Glen</h5></div>
+                        <div className="col-md-6">
+                            {this.generateTrainRows(this.props.inboundTrains)}
+                        </div>
+                        <div className="col-md-6">
+                            {this.generateTrainRows(this.props.outboundTrains)}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
     }
 }

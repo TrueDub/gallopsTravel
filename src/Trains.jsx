@@ -94,28 +94,28 @@ export default class Trains extends React.Component {
         return (
             <div id="luas">
                 <h3 className="text-center">Luas Information - {this.state.glencairnData.message}</h3>
-                <div className="row">
-                    <div className="col">
+                {/*<div className="row">*/}
+                    <div>
                         <LuasStop stopName="Glencairn"
                                   inboundTrains={this.state.glencairnData.trainData.inboundTrains}
                                   outboundTrains={this.state.glencairnData.trainData.outboundTrains}/>
                     </div>
-                    <div className="col">
+                    <div>
                         <LuasStop stopName="The Gallops"
                                   inboundTrains={this.state.gallopsData.trainData.inboundTrains}
                                   outboundTrains={this.state.gallopsData.trainData.outboundTrains}/>
                     </div>
-                    <div className="col">
+                    <div>
                         <LuasStop stopName="Leopardstown Valley"
                                   inboundTrains={this.state.leopardstownData.trainData.inboundTrains}
                                   outboundTrains={this.state.leopardstownData.trainData.outboundTrains}/>
                     </div>
-                    <div className="col">
+                    <div>
                         <LuasStop stopName="Ballyogan Wood"
                                   inboundTrains={this.state.ballyoganData.trainData.inboundTrains}
                                   outboundTrains={this.state.ballyoganData.trainData.outboundTrains}/>
                     </div>
-                </div>
+                {/*</div>*/}
             </div>
         );
     }
