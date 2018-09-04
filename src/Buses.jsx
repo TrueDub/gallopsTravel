@@ -2,6 +2,10 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import axios from "axios";
 import BusStop from './components/BusStop.jsx'
+import {ProgressSpinner} from "primereact/progressspinner";
+
+import 'primereact/resources/primereact.min.css';
+import 'primereact/resources/themes/nova-light/theme.css';
 
 const API_ROOT_3470 = 'https://data.smartdublin.ie/cgi-bin/rtpi/realtimebusinformation?stopid=3470&format=json';
 const API_ROOT_3471 = 'https://data.smartdublin.ie/cgi-bin/rtpi/realtimebusinformation?stopid=3471&format=json';
@@ -23,6 +27,7 @@ export default class Buses extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            loading: true,
             data3470: {buses: [{dueMins: '', destination: '', route: ''}]},
             data3471: {buses: [{dueMins: '', destination: '', route: ''}]},
             data3487: {buses: [{dueMins: '', destination: '', route: ''}]},
@@ -86,12 +91,14 @@ export default class Buses extends React.Component {
                     data7415: data7415,
                     data7416: data7416,
                     data7417: data7417,
-                    data7418: data7418
+                    data7418: data7418,
+                    loading: false
                 });
             }));
     }
 
     processBusData(response) {
+        console.log(response.results);
         let buses = [];
         response.results.forEach(entry => {
             buses.push({
@@ -108,78 +115,82 @@ export default class Buses extends React.Component {
     render() {
         return (
             <div>
-                <h3 className="text-center">Dublin Bus Information</h3>
-                <div className="row">
-                    <div className="col">
-                        <BusStop stopNumber='7416' stopName='Murphystown Way, Mount Eagle Park'
-                                 buses={this.state.data7416.buses}/>
-                    </div>
-                    <div className="col">
-                        <BusStop stopNumber='7418' stopName='Murphystown Way, Mount Eagle Lawn'
-                                 buses={this.state.data7418.buses}/>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col">
-                        <BusStop stopNumber='7415' stopName='Murphystown Way, Luas Glencairn'
-                                 buses={this.state.data7415.buses}/>
-                    </div>
-                    <div className="col">
-                        <BusStop stopNumber='7417' stopName='Murphystown Way, Luas Glencairn'
-                                 buses={this.state.data7417.buses}/>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col">
-                        <BusStop stopNumber='3487' stopName='Kilgobbin Rd, Ballyogan Road'
-                                 buses={this.state.data3487.buses}/>
-                    </div>
-                    <div className="col">
-                        <BusStop stopNumber='3471' stopName='Kilgobbin Rd, Ballyogan Road'
-                                 buses={this.state.data3471.buses}/>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col">
-                        <BusStop stopNumber='3488' stopName='Kilgobbin Rd, Sandyford Hall'
-                                 buses={this.state.data3488.buses}/>
-                    </div>
-                    <div className="col">
-                        <BusStop stopNumber='3470' stopName='Kilgobbin Rd, Sandyford Hall'
-                                 buses={this.state.data3470.buses}/>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col">
-                        <BusStop stopNumber='4396' stopName='Ballyogan Rd, Ballyogan Avenue'
-                                 buses={this.state.data4396.buses}/>
-                    </div>
-                    <div className="col">&nbsp;</div>
-                </div>
-                <div className="row">
-                    <div className="col">
-                        <BusStop stopNumber='4313' stopName='Ballyogan Rd, Luas Ballyogan'
-                                 buses={this.state.data4313.buses}/>
-                    </div>
-                    <div className="col">
-                        <BusStop stopNumber='5106' stopName='Ballyogan Rd, Luas Ballyogan'
-                                 buses={this.state.data5106.buses}/>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col">
-                        <BusStop stopNumber='4773' stopName='Ballyogan Rd, Ballyogan Road'
-                                 buses={this.state.data4773.buses}/>
-                    </div>
-                    <div className="col">
-                        <BusStop stopNumber='4393' stopName='Ballyogan Ave, Leopardstown Abbey'
-                                 buses={this.state.data4393.buses}/>
-                    </div>
-                    <div className="col">
-                        <BusStop stopNumber='4395' stopName='Ballyogan, Community Centre'
-                                 buses={this.state.data4395.buses}/>
-                    </div>
-                </div>
+                {this.state.loading ?
+                    <ProgressSpinner className="centerAlign"/> :
+                    <div>
+                        <h3 className="text-center">Dublin Bus Information</h3>
+                        <div className="row">
+                            <div className="col">
+                                <BusStop stopNumber='7416' stopName='Murphystown Way, Mount Eagle Park'
+                                         buses={this.state.data7416.buses}/>
+                            </div>
+                            <div className="col">
+                                <BusStop stopNumber='7418' stopName='Murphystown Way, Mount Eagle Lawn'
+                                         buses={this.state.data7418.buses}/>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col">
+                                <BusStop stopNumber='7415' stopName='Murphystown Way, Luas Glencairn'
+                                         buses={this.state.data7415.buses}/>
+                            </div>
+                            <div className="col">
+                                <BusStop stopNumber='7417' stopName='Murphystown Way, Luas Glencairn'
+                                         buses={this.state.data7417.buses}/>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col">
+                                <BusStop stopNumber='3487' stopName='Kilgobbin Rd, Ballyogan Road'
+                                         buses={this.state.data3487.buses}/>
+                            </div>
+                            <div className="col">
+                                <BusStop stopNumber='3471' stopName='Kilgobbin Rd, Ballyogan Road'
+                                         buses={this.state.data3471.buses}/>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col">
+                                <BusStop stopNumber='3488' stopName='Kilgobbin Rd, Sandyford Hall'
+                                         buses={this.state.data3488.buses}/>
+                            </div>
+                            <div className="col">
+                                <BusStop stopNumber='3470' stopName='Kilgobbin Rd, Sandyford Hall'
+                                         buses={this.state.data3470.buses}/>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col">
+                                <BusStop stopNumber='4396' stopName='Ballyogan Rd, Ballyogan Avenue'
+                                         buses={this.state.data4396.buses}/>
+                            </div>
+                            <div className="col">&nbsp;</div>
+                        </div>
+                        <div className="row">
+                            <div className="col">
+                                <BusStop stopNumber='4313' stopName='Ballyogan Rd, Luas Ballyogan'
+                                         buses={this.state.data4313.buses}/>
+                            </div>
+                            <div className="col">
+                                <BusStop stopNumber='5106' stopName='Ballyogan Rd, Luas Ballyogan'
+                                         buses={this.state.data5106.buses}/>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col">
+                                <BusStop stopNumber='4773' stopName='Ballyogan Rd, Ballyogan Road'
+                                         buses={this.state.data4773.buses}/>
+                            </div>
+                            <div className="col">
+                                <BusStop stopNumber='4393' stopName='Ballyogan Ave, Leopardstown Abbey'
+                                         buses={this.state.data4393.buses}/>
+                            </div>
+                            <div className="col">
+                                <BusStop stopNumber='4395' stopName='Ballyogan, Community Centre'
+                                         buses={this.state.data4395.buses}/>
+                            </div>
+                        </div>
+                    </div>}
             </div>
         );
     }

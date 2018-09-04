@@ -1,11 +1,12 @@
 import React from 'react';
 import {parse} from 'pixl-xml';
-import {DataTable} from 'primereact/datatable';
-import {Column} from 'primereact/column';
-
 import 'bootstrap/dist/css/bootstrap.css';
 import axios from "axios";
 import LuasStop from "./components/LuasStop";
+import {ProgressSpinner} from "primereact/progressspinner";
+
+import 'primereact/resources/primereact.min.css';
+import 'primereact/resources/themes/nova-light/theme.css';
 
 const API_ROOT = 'https://luasforecasts.rpa.ie/xml/get.ashx';
 
@@ -15,6 +16,7 @@ export default class Trains extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            loading: true,
             glencairnData: {message: '', trainData: {inboundTrains: [], outboundTrains: []}},
             gallopsData: {message: '', trainData: {inboundTrains: [], outboundTrains: []}},
             leopardstownData: {message: '', trainData: {inboundTrains: [], outboundTrains: []}},
@@ -35,13 +37,15 @@ export default class Trains extends React.Component {
                     glencairnData: glencairnData,
                     gallopsData: gallopsData,
                     leopardstownData: leopardstownData,
-                    ballyoganData: ballyoganData
+                    ballyoganData: ballyoganData,
+                    loading: false
                 });
             }));
     }
 
     processTrainData(response) {
         let result = parse(response.data);
+        console.log(result);
         let inboundTrains = [];
         let outboundTrains = [];
         result.direction.forEach(entry => {
@@ -92,30 +96,32 @@ export default class Trains extends React.Component {
 
     render() {
         return (
-            <div id="luas">
-                <h3 className="text-center">Luas Information - {this.state.glencairnData.message}</h3>
-                {/*<div className="row">*/}
-                    <div>
-                        <LuasStop stopName="Glencairn"
-                                  inboundTrains={this.state.glencairnData.trainData.inboundTrains}
-                                  outboundTrains={this.state.glencairnData.trainData.outboundTrains}/>
-                    </div>
-                    <div>
-                        <LuasStop stopName="The Gallops"
-                                  inboundTrains={this.state.gallopsData.trainData.inboundTrains}
-                                  outboundTrains={this.state.gallopsData.trainData.outboundTrains}/>
-                    </div>
-                    <div>
-                        <LuasStop stopName="Leopardstown Valley"
-                                  inboundTrains={this.state.leopardstownData.trainData.inboundTrains}
-                                  outboundTrains={this.state.leopardstownData.trainData.outboundTrains}/>
-                    </div>
-                    <div>
-                        <LuasStop stopName="Ballyogan Wood"
-                                  inboundTrains={this.state.ballyoganData.trainData.inboundTrains}
-                                  outboundTrains={this.state.ballyoganData.trainData.outboundTrains}/>
-                    </div>
-                {/*</div>*/}
+            <div>
+                {this.state.loading ?
+                    <ProgressSpinner className="centerAlign"/> :
+                    <div id="luas">
+                        <h3 className="text-center">Luas Information - {this.state.glencairnData.message}</h3>
+                        <div>
+                            <LuasStop stopName="Glencairn"
+                                      inboundTrains={this.state.glencairnData.trainData.inboundTrains}
+                                      outboundTrains={this.state.glencairnData.trainData.outboundTrains}/>
+                        </div>
+                        <div>
+                            <LuasStop stopName="The Gallops"
+                                      inboundTrains={this.state.gallopsData.trainData.inboundTrains}
+                                      outboundTrains={this.state.gallopsData.trainData.outboundTrains}/>
+                        </div>
+                        <div>
+                            <LuasStop stopName="Leopardstown Valley"
+                                      inboundTrains={this.state.leopardstownData.trainData.inboundTrains}
+                                      outboundTrains={this.state.leopardstownData.trainData.outboundTrains}/>
+                        </div>
+                        <div>
+                            <LuasStop stopName="Ballyogan Wood"
+                                      inboundTrains={this.state.ballyoganData.trainData.inboundTrains}
+                                      outboundTrains={this.state.ballyoganData.trainData.outboundTrains}/>
+                        </div>
+                    </div>}
             </div>
         );
     }
