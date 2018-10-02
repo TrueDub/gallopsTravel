@@ -6,6 +6,7 @@ import './App.css';
 
 import Trains from './Trains.jsx';
 import Buses from './Buses.jsx';
+import ErrorBoundary from './components/ErrorBoundary.jsx';
 import axios from "axios";
 import {parse} from "pixl-xml";
 
@@ -57,6 +58,10 @@ class App extends Component {
         }
         this.gatherTrainData();
         this.gatherBusData();
+        console.log("trainData");
+        console.log(this.state.trainData);
+        console.log("busData");
+        console.log(this.state.busData);
     }
 
     gatherTrainData() {
@@ -190,8 +195,12 @@ class App extends Component {
         return (
             <div className="container">
                 <h5 className="text-center">Information requested at {moment().format('HH:mm:SS DD/MM/YYYY')}</h5>
-                <Trains trainData={this.state.trainData}/>
-                <Buses busData={this.state.busData}/>
+                <ErrorBoundary message='There was an error retrieving Luas information'>
+                    <Trains trainData={this.state.trainData}/>
+                </ErrorBoundary>
+                <ErrorBoundary message='There was an error retrieving Dublin Bus information'>
+                    <Buses busData={this.state.busData}/>
+                </ErrorBoundary>
             </div>
         );
     }
