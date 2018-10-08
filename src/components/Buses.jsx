@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import BusStop from './components/BusStop.jsx';
+import BusStop from './BusStop.jsx';
 
 export default class Buses extends React.Component {
 

@@ -1,9 +1,9 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import LuasStop from "./components/LuasStop";
+import LuasStop from "./LuasStop";
 
 
-export default class Trains extends React.Component {
+export default class Trams extends React.Component {
 
     render() {
         return (
