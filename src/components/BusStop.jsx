@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types'
 
 function BusDetail(props) {
     return (
@@ -70,16 +69,3 @@ export default class BusStop extends React.Component {
     }
 }
 
-BusStop.propTypes = {
-    stopNumber: PropTypes.number.isRequired,
-    stopName: PropTypes.string.isRequired,
-    errorMessage: PropTypes.string,
-    buses: PropTypes.arrayOf(
-        PropTypes.shape({
-            dueMins: PropTypes.number.isRequired,
-            destination: PropTypes.string.isRequired,
-            route: PropTypes.string.isRequired,
-            errorMessage: PropTypes.string
-        }).isRequired
-    )
-};

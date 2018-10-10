@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from 'prop-types'
 import {DataTable} from "primereact/datatable";
 import {Column} from "primereact/column";
 
@@ -36,20 +35,5 @@ export default class LuasStop extends React.Component {
                 </div>
             </div>
         )
-    }
-}
-
-LuasStop.PropTypes = {
-    stopName: PropTypes.string.isRequired,
-    message: PropTypes.string.isRequired,
-    trainData: {
-        inboundTrains: {
-            dueMins: PropTypes.number.isRequired,
-            destination: PropTypes.string.isRequired
-        },
-        outboundTrains: {
-            dueMins: PropTypes.number.isRequired,
-            destination: PropTypes.string.isRequired
-        }
     }
 }

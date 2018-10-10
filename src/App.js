@@ -10,6 +10,12 @@ import ErrorBoundary from './components/ErrorBoundary.jsx';
 import axios from "axios";
 import {parse} from "pixl-xml";
 
+import {createStore} from 'redux'
+import gallopsApp from './reducers/Reducer';
+import {executeRefresh} from './actions/actions';
+
+const store = createStore(gallopsApp)
+
 const API_ROOT = 'https://luasforecasts.rpa.ie/xml/get.ashx';
 
 const API_ROOT_3470 = 'https://data.smartdublin.ie/cgi-bin/rtpi/realtimebusinformation?stopid=3470&format=json';
@@ -31,7 +37,7 @@ class App extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
+        /*this.state = {
             loading: true,
             trainData: {
                 glencairnData: {message: '', trainData: {inboundTrains: [], outboundTrains: []}},
@@ -61,7 +67,18 @@ class App extends Component {
         console.log("trainData");
         console.log(this.state.trainData);
         console.log("busData");
-        console.log(this.state.busData);
+        console.log(this.state.busData);*/
+
+        // Log the initial state
+        console.log(store.getState());
+        this.state = store.getState();
+        const unsubscribe = store.subscribe(() =>
+            console.log(store.getState())
+        )
+
+        store.dispatch(executeRefresh())
+
+        unsubscribe()
     }
 
     gatherTrainData() {
