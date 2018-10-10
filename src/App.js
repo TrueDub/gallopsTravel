@@ -4,15 +4,15 @@ import * as moment from 'moment';
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 
-import Trams from './components/Trams.jsx';
-import Buses from './components/Buses.jsx';
 import ErrorBoundary from './components/ErrorBoundary.jsx';
 import axios from "axios";
 import {parse} from "pixl-xml";
 
 import {createStore} from 'redux'
 import gallopsApp from './reducers/Reducer';
-import {executeRefresh} from './actions/actions';
+import TramContainer from "./containers/TramContainer";
+import BusContainer from "./containers/BusContainer";
+import {executeRefresh} from "./actions/actions";
 
 const store = createStore(gallopsApp)
 
@@ -71,7 +71,7 @@ class App extends Component {
 
         // Log the initial state
         console.log(store.getState());
-        this.state = store.getState();
+        // this.state = store.getState();
         const unsubscribe = store.subscribe(() =>
             console.log(store.getState())
         )
@@ -213,10 +213,10 @@ class App extends Component {
             <div className="container">
                 <h5 className="text-center">Information requested at {moment().format('HH:mm:SS DD/MM/YYYY')}</h5>
                 <ErrorBoundary message='There was an error retrieving Luas information'>
-                    <Trams trainData={this.state.trainData}/>
+                    <TramContainer/>
                 </ErrorBoundary>
                 <ErrorBoundary message='There was an error retrieving Dublin Bus information'>
-                    <Buses busData={this.state.busData}/>
+                    <BusContainer/>
                 </ErrorBoundary>
             </div>
         );

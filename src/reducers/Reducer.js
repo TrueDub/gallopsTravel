@@ -1,13 +1,9 @@
-import initialState from '../state/initialState';
-import {REFRESH} from '../actions/actions';
+import BusReducer from "./BusReducer";
+import TramReducer from "./TramReducer";
 
-export default function gallopsApp(state = initialState, action) {
-    switch (action.type) {
-        case REFRESH:
-            return Object.assign({}, state, {
-                refreshed: true
-            })
-        default:
-            return state
+export default function gallopsApp(state = {}, action) {
+    return {
+        trainData: TramReducer(state.trainData, action),
+        busData: BusReducer(state.busData, action)
     }
 }
