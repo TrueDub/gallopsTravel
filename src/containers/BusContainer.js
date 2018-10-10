@@ -1,14 +1,16 @@
 import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+
 import Buses from '../components/Buses.jsx'
 
-const mapStateToProps = state => {
+function mapStateToProps(state) {
     return {
-        buses: getVisibleTodos(state.todos, state.visibilityFilter)
-    }
-}
+        contacts: state.contacts
+    };
+};
 ​
-const mapDispatchToProps = dispatch => {
-    return {}
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({selectContact: selectContact}, dispatch);
 }
 
 const BusContainer = connect(
