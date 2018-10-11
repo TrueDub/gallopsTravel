@@ -25,6 +25,7 @@ const emptyBusStop = {
 }
 
 const initialState = {
+    loading: true,
     data3470: emptyBusStop,
     data3471: emptyBusStop,
     data3487: emptyBusStop,

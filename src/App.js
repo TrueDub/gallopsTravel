@@ -9,7 +9,7 @@ import axios from "axios";
 import {parse} from "pixl-xml";
 
 import {createStore} from 'redux'
-import gallopsApp from './reducers/Reducer';
+import gallopsApp from './reducers/RootReducer';
 import TramContainer from "./containers/TramContainer";
 import BusContainer from "./containers/BusContainer";
 import {executeRefresh} from "./actions/actions";
@@ -70,15 +70,19 @@ class App extends Component {
         console.log(this.state.busData);*/
 
         // Log the initial state
+        console.log('init');
         console.log(store.getState());
         // this.state = store.getState();
-        const unsubscribe = store.subscribe(() =>
+        /*const unsubscribe = store.subscribe(() =>
             console.log(store.getState())
-        )
+        )*/
+        setTimeout(function () {
+            console.log('dispatching');
+            store.dispatch(executeRefresh())
+        }, (3 * 1000));
 
-        store.dispatch(executeRefresh())
 
-        unsubscribe()
+        //unsubscribe()
     }
 
     gatherTrainData() {

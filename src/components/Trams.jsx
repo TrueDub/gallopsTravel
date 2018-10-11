@@ -1,13 +1,17 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import LuasStop from "./LuasStop";
+import {ProgressSpinner} from "primereact/progressspinner";
 
 
 export default class Trams extends React.Component {
 
     render() {
-        return (
-            <div id="luas">
+        let output;
+        if (this.props.trainData.isLoading) {
+            output = <ProgressSpinner/>;
+        } else {
+            output = <div id="luas">
                 <h3 className="text-center">Luas Information - {this.props.trainData.glencairnData.message}</h3>
                 <div>
                     <LuasStop stopName="Glencairn"
@@ -29,6 +33,11 @@ export default class Trams extends React.Component {
                               inboundTrains={this.props.trainData.ballyoganData.trainData.inboundTrains}
                               outboundTrains={this.props.trainData.ballyoganData.trainData.outboundTrains}/>
                 </div>
+            </div>;
+        }
+        return (
+            <div id="trams">
+                {output}
             </div>
         );
     }

@@ -3,6 +3,8 @@ import {connect} from "react-redux";
 import {executeRefresh} from "../actions/actions";
 
 const mapStateToProps = state => {
+    console.log("New state");
+    console.log(state.trainData.isLoading);
     return {
         trainData: state.trainData
     }
