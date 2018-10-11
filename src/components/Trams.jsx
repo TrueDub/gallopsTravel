@@ -9,9 +9,13 @@ export default class Trams extends React.Component {
     render() {
         let output;
         if (this.props.trainData.isLoading) {
-            output = <ProgressSpinner/>;
+            output = <div>
+                <button onClick={this.props.onRefresh}>Refresh</button>
+                < ProgressSpinner/>
+            </div>;
         } else {
             output = <div id="luas">
+                <button onClick={this.props.onRefresh}>Refresh</button>
                 <h3 className="text-center">Luas Information - {this.props.trainData.glencairnData.message}</h3>
                 <div>
                     <LuasStop stopName="Glencairn"

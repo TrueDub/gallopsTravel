@@ -8,13 +8,9 @@ import ErrorBoundary from './components/ErrorBoundary.jsx';
 import axios from "axios";
 import {parse} from "pixl-xml";
 
-import {createStore} from 'redux'
-import gallopsApp from './reducers/RootReducer';
 import TramContainer from "./containers/TramContainer";
 import BusContainer from "./containers/BusContainer";
-import {executeRefresh} from "./actions/actions";
 
-const store = createStore(gallopsApp)
 
 const API_ROOT = 'https://luasforecasts.rpa.ie/xml/get.ashx';
 
@@ -69,20 +65,6 @@ class App extends Component {
         console.log("busData");
         console.log(this.state.busData);*/
 
-        // Log the initial state
-        console.log('init');
-        console.log(store.getState());
-        // this.state = store.getState();
-        /*const unsubscribe = store.subscribe(() =>
-            console.log(store.getState())
-        )*/
-        setTimeout(function () {
-            console.log('dispatching');
-            store.dispatch(executeRefresh())
-        }, (3 * 1000));
-
-
-        //unsubscribe()
     }
 
     gatherTrainData() {
