@@ -12,7 +12,6 @@ export default function buses(state = initialState, action) {
                 isLoading: true
             });
         case RECEIVE_BUS_DATA:
-            console.log("fred")
             return Object.assign({}, state, {
                 refreshed: true,
                 isLoading: false,
@@ -43,12 +42,17 @@ function processBusData(response) {
         buses.push({
                 dueMins: entry.duetime,
                 destination: entry.destination,
-                route: entry.route,
-                errorMessage: entry.errorMessage
+                route: entry.route
             }
         );
     });
-    return {buses: buses};
+    return {
+        stopNumber: null,
+        stopName: '',
+        errorMessage: response.errormessage,
+        errorCode: response.errorcode,
+        buses: buses
+    };
 }
 
 const emptyBus = {
@@ -61,12 +65,14 @@ const emptyBus = {
 const emptyBusStop = {
     stopNumber: null,
     stopName: '',
+    errorMessage: '',
+    errorCode: '',
     buses: [emptyBus]
 }
 
 const initialState = {
     refreshed: false,
-    isLoading: true,
+    isLoading: false,
     data3470: emptyBusStop,
     data3471: emptyBusStop,
     data3487: emptyBusStop,
@@ -80,5 +86,6 @@ const initialState = {
     data7415: emptyBusStop,
     data7416: emptyBusStop,
     data7417: emptyBusStop,
-    data7418: emptyBusStop
+    data7418: emptyBusStop,
+    receivedAt: Date.now()
 }

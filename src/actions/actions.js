@@ -116,7 +116,8 @@ export function fetchBusData() {
                     response7415: response7415,
                     response7416: response7416,
                     response7417: response7417,
-                    response7418: response7418
+                    response7418: response7418,
+                    receivedAt: Date.now()
                 };
                 dispatch(receiveBusData(result));
             }));

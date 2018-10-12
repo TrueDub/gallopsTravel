@@ -14,7 +14,7 @@ export default function trams(state = initialState, action) {
             return Object.assign({}, state, {
                 refreshed: true,
                 isLoading: false,
-                lastUpdated: action.receivedAt,
+                receivedAt: Date.now(),
                 glencairnData: processTrainData(action.tramData.gleData),
                 gallopsData: processTrainData(action.tramData.galData),
                 leopardstownData: processTrainData(action.tramData.leoData),
@@ -78,8 +78,7 @@ const emptyLuasStop = {
 
 const initialState = {
     refreshed: false,
-    isLoading: true,
-    lastUpdated: Date.now(),
+    isLoading: false,
     glencairnData: emptyLuasStop,
     gallopsData: emptyLuasStop,
     leopardstownData: emptyLuasStop,

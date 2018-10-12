@@ -10,10 +10,14 @@ import {createLogger} from 'redux-logger'
 
 import 'primereact/resources/themes/nova-light/theme.css';
 import 'primereact/resources/primereact.min.css';
+import {fetchBusData, fetchTramData} from "./actions/actions";
 
 const loggerMiddleware = createLogger();
 
 const store = createStore(gallopsApp, applyMiddleware(thunkMiddleware, loggerMiddleware));
+//perform initial data load
+store.dispatch(fetchTramData());
+store.dispatch(fetchBusData());
 
 render(
     <Provider store={store}>

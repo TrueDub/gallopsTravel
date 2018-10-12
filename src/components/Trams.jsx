@@ -2,6 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import LuasStop from "./LuasStop";
 import {ProgressSpinner} from "primereact/progressspinner";
+import moment from "moment";
 
 
 export default class Trams extends React.Component {
@@ -10,13 +11,15 @@ export default class Trams extends React.Component {
         let output;
         if (this.props.trainData.isLoading) {
             output = <div>
-                <button onClick={this.props.onTramRefresh}>Refresh</button>
+                <button onClick={this.props.onTramRefresh}>Refresh Luas Data</button>
                 < ProgressSpinner/>
             </div>;
         } else {
             output = <div id="luas">
-                <button onClick={this.props.onRefresh}>Refresh</button>
+                <button onClick={this.props.onTramRefresh}>Refresh Luas Data</button>
                 <h3 className="text-center">Luas Information - {this.props.trainData.glencairnData.message}</h3>
+                <h5 className="text-center">Retrieved
+                    at {moment(this.props.trainData.receivedAt).format('HH:mm:ss DD/MM/YYYY')}</h5>
                 <div>
                     <LuasStop stopName="Glencairn"
                               inboundTrains={this.props.trainData.glencairnData.trainData.inboundTrains}
