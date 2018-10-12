@@ -10,7 +10,7 @@ export default class Trams extends React.Component {
         let output;
         if (this.props.trainData.isLoading) {
             output = <div>
-                <button onClick={this.props.onRefresh}>Refresh</button>
+                <button onClick={this.props.onTramRefresh}>Refresh</button>
                 < ProgressSpinner/>
             </div>;
         } else {

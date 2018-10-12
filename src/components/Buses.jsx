@@ -1,12 +1,19 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import BusStop from './BusStop.jsx';
+import {ProgressSpinner} from "primereact/progressspinner";
 
 export default class Buses extends React.Component {
 
     render() {
-        return (
-            <div>
+        let output;
+        if (this.props.busData.isLoading) {
+            output = <div>
+                <button onClick={this.props.onBusRefresh}>Refresh</button>
+                < ProgressSpinner/>
+            </div>;
+        } else {
+            output = <div>
                 <h3 className="text-center">Dublin Bus Information</h3>
                 <div className="row">
                     <div className="col">
@@ -79,6 +86,11 @@ export default class Buses extends React.Component {
                                  buses={this.props.busData.data4395.buses}/>
                     </div>
                 </div>
+            </div>
+        }
+        return (
+            <div>
+                {output}
             </div>
         );
     }

@@ -1,5 +1,5 @@
 import {connect} from "react-redux";
-import {executeRefresh} from "../actions/actions";
+import {fetchBusData} from "../actions/actions";
 import Buses from "../components/Buses";
 
 const mapStateToProps = state => {
@@ -10,8 +10,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onRefresh: id => {
-            dispatch(executeRefresh())
+        onBusRefresh: id => {
+            dispatch(fetchBusData())
         }
     }
 };
