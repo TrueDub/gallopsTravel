@@ -11,12 +11,13 @@ export default class Trams extends React.Component {
         let output;
         if (this.props.trainData.isLoading) {
             output = <div>
-                <button onClick={this.props.onTramRefresh}>Refresh Luas Data</button>
                 < ProgressSpinner/>
             </div>;
         } else {
             output = <div id="luas">
-                <button onClick={this.props.onTramRefresh}>Refresh Luas Data</button>
+                <button onClick={this.props.onTramRefresh} type="button"
+                        className="btn btn-outline-primary btn-sm float-right">Refresh Luas Information
+                </button>
                 <h3 className="text-center">Luas Information - {this.props.trainData.glencairnData.message}</h3>
                 <h5 className="text-center">Retrieved
                     at {moment(this.props.trainData.receivedAt).format('HH:mm:ss DD/MM/YYYY')}</h5>

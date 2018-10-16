@@ -10,12 +10,13 @@ export default class Buses extends React.Component {
         let output;
         if (this.props.busData.isLoading) {
             output = <div>
-                <button onClick={this.props.onBusRefresh}>Refresh Bus Data</button>
                 < ProgressSpinner/>
             </div>;
         } else {
             output = <div>
-                <button onClick={this.props.onBusRefresh}>Refresh Bus Data</button>
+                <button onClick={this.props.onBusRefresh} type="button"
+                        className="btn btn-outline-primary btn-sm float-right">Refresh Bus Information
+                </button>
                 <h3 className="text-center">Dublin Bus Information</h3>
                 <h5 className="text-center">Retrieved
                     at {moment(this.props.busData.receivedAt).format('HH:mm:ss DD/MM/YYYY')}</h5>
