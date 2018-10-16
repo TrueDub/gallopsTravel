@@ -1,7 +1,7 @@
 {
   "name": "gallopsTravel",
   "homepage": "http://truedub.github.io/gallopsTravel",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
@@ -10,10 +10,15 @@
     "moment": "^2.22.2",
     "pixl-xml": "^1.0.13",
     "primereact": "^2.0.0-beta.3",
+    "prop-types": "^15.6.2",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
     "react-overlay-loader": "0.0.3",
-    "react-scripts": "1.1.4"
+    "react-redux": "^5.0.7",
+    "react-scripts": "1.1.4",
+    "redux": "^4.0.0",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",

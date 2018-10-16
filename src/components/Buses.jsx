@@ -1,13 +1,25 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import BusStop from './components/BusStop.jsx';
+import BusStop from './BusStop.jsx';
+import {ProgressSpinner} from "primereact/progressspinner";
+import moment from "moment";
 
 export default class Buses extends React.Component {
 
     render() {
-        return (
-            <div>
+        let output;
+        if (this.props.busData.isLoading) {
+            output = <div>
+                < ProgressSpinner/>
+            </div>;
+        } else {
+            output = <div>
+                <button onClick={this.props.onBusRefresh} type="button"
+                        className="btn btn-outline-primary btn-sm float-right">Refresh Bus Information
+                </button>
                 <h3 className="text-center">Dublin Bus Information</h3>
+                <h5 className="text-center">Retrieved
+                    at {moment(this.props.busData.receivedAt).format('HH:mm:ss DD/MM/YYYY')}</h5>
                 <div className="row">
                     <div className="col">
                         <BusStop stopNumber='7416' stopName='Murphystown Way, Mount Eagle Park'
@@ -79,6 +91,11 @@ export default class Buses extends React.Component {
                                  buses={this.props.busData.data4395.buses}/>
                     </div>
                 </div>
+            </div>
+        }
+        return (
+            <div>
+                {output}
             </div>
         );
     }
