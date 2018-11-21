@@ -20,11 +20,11 @@ class App extends Component {
                             <TramContainer/>
                         </ErrorBoundary>
                     </TabPanel>
-                    <TabPanel header="Dublin Bus">
+                    {/*<TabPanel header="Dublin Bus">
                         <ErrorBoundary message='There was an error retrieving Dublin Bus information'>
                             <BusContainer/>
                         </ErrorBoundary>
-                    </TabPanel>
+                    </TabPanel>*/}
                 </TabView>
             </div>
         );

@@ -82,6 +82,7 @@ export function fetchTramData() {
 export function fetchBusData() {
     return function (dispatch) {
         dispatch(requestBusData());
+        axios.defaults.headers.get['crossDomain'] = true;
         return axios.all([
             axios.get(API_ROOT_3470),
             axios.get(API_ROOT_3471),

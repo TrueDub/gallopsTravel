@@ -55,7 +55,7 @@ function generateBusRows(busData) {
 export default class BusStop extends React.Component {
 
     render() {
-        console.log(this.props.errorCode);
+        //console.log(this.props.errorCode);
         if (this.props.errorCode === undefined) {
             return (
                 <BusDetail stopNumber={this.props.stopNumber} stopName={this.props.stopName}

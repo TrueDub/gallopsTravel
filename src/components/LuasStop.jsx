@@ -1,19 +1,25 @@
-import React from "react";
-import {DataTable} from "primereact/datatable";
-import {Column} from "primereact/column";
+import React from 'react';
+//import {DataTable} from "primereact/datatable";
+//import {Column} from "primereact/column";
+import SimpleTreeTable from 'simple-react-treetable';
 
 export default class LuasStop extends React.Component {
 
     generateTrainRows(trainData) {
         let trains = [];
         trainData.forEach(train => {
-            trains.push({due: train.dueMins, destination: train.destination})
+            trains.push({data: {due: train.dueMins, destination: train.destination}})
         })
+        let columns = [{
+            dataField: 'due',
+            heading: 'Due in (mins)'
+        }, {
+            dataField: 'destination',
+            heading: 'Destination'
+        }];
+        let controls = {showButton: false, tableClasses: 'table table-bordered'};
         return (
-            <DataTable value={trains}>
-                <Column field="due" header="Due in (mins)"/>
-                <Column field="destination" header="Destination"/>
-            </DataTable>
+            <SimpleTreeTable tableData={trains} columns={columns} control={controls}></SimpleTreeTable>
         )
     }
 

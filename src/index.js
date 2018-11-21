@@ -1,3 +1,5 @@
+import 'core-js/modules/es6.regexp.to-string';
+import 'core-js/modules/es6.promise';
 import React from 'react';
 import {render} from 'react-dom'
 import './index.css';
@@ -17,7 +19,7 @@ const loggerMiddleware = createLogger();
 const store = createStore(gallopsApp, applyMiddleware(thunkMiddleware, loggerMiddleware));
 //perform initial data load
 store.dispatch(fetchTramData());
-store.dispatch(fetchBusData());
+//store.dispatch(fetchBusData());
 
 render(
     <Provider store={store}>
